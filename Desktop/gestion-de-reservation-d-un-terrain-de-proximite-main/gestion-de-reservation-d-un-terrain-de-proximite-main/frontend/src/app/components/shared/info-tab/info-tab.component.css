@@ -1,0 +1,38 @@
+/*/deep/ .cdk-overlay-backdrop {*/
+/*  z-index: 100000000 !important;*/
+/*  background-color: #04bb03 !important;*/
+/*}*/
+a{
+  text-decoration: none; color:var(--primary);
+  font-size: 14px;
+}
+.hover-link{
+  cursor: pointer;
+}
+.hover-link span {
+  font-size: 14px;
+  color: var(--text);
+
+}
+i{
+  font-size: 20px;
+  margin-right: 5px;
+}
+.hover-link .bi-person{
+  font-size: 20px;
+  margin-top: -2px;
+}
+/* Add your custom styles in your stylesheet or <style> tag */
+.hover-link:hover i,
+.hover-link:hover span {
+  color: var(--primary); /* Change this to the desired color on hover */
+}
+@media (max-width: 500px) {
+  .info {
+    flex-direction: column;
+    align-items: start !important;
+  }
+}
+
+
+

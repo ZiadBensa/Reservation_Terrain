@@ -1,0 +1,23 @@
+spring.application.name=Reservation Terrain
+
+# Database (PostgreSQL)
+spring.datasource.url=jdbc:postgresql://localhost:5432/reservation_terrain
+spring.datasource.username=YOUR_DB_USER
+spring.datasource.password=YOUR_DB_PASSWORD
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA/Hibernate
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+# File uploads (adjust to a writable folder on the server)
+upload.dir=uploads/images/
+
+# Multipart limits
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+
+# CORS (consider aligning with your frontend URL)
+# Configure via a CorsConfig or Spring properties if preferred
+

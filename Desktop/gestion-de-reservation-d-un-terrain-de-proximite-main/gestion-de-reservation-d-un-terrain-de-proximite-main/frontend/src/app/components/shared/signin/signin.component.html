@@ -1,0 +1,46 @@
+<!-- Main Content -->
+<app-info-tab></app-info-tab>
+<app-nav-bar></app-nav-bar>
+<div class="container-fluid" >
+  <div class="row main-content  text-center">
+    <div class="col-6 text-center company__info" style="background: radial-gradient(#fff,#2fce19);">
+      <!--      <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>-->
+      <!--      <h4 class="company_title">Your Company Logo</h4>-->
+      <img src="assets/images/image1.png">
+    </div>
+    <div class="col-6 login_form">
+      <div class="container-fluid">
+
+        <div class="row">
+          <form control="" class="form-group" (ngSubmit)="onSubmit()">
+            <div class="row mt-5">
+              <h2>Log In</h2>
+            </div>
+            <div class="row">
+              <input type="email" name="username" id="username" class="form__input" placeholder="Email" required [(ngModel)]="credentials.email" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="row">
+              <!-- <span class="fa fa-lock"></span> -->
+              <input type="password" name="password" id="password" class="form__input" placeholder="Password" required [(ngModel)]="credentials.password" [ngModelOptions]="{standalone: true}">
+            </div>
+            <!--<div class="d-flex justify-content-center">
+              <input type="checkbox" name="remember_me" id="remember_me" class="me-1">
+              <label for="remember_me">Remember Me!</label>
+            </div>-->
+            <div class="row justify-content-center">
+              <input type="submit" value="Submit" class="btn">
+            </div>
+            <div class="row">
+              <p>Don't have an account? <br><a href="#" id="register">Register Here</a></p>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+
+

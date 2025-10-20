@@ -1,0 +1,148 @@
+<app-info-tab [authenticatedUser]="JSON.parse(user)"></app-info-tab>
+<app-nav-bar></app-nav-bar>
+<app-header-section pageTitle="Checkout" pageDescription="Checkout"></app-header-section>
+
+<div class="checkout-wrapper container">
+  <div class="checkout-inner row">
+    <div id="checkout_form_block" class="checkout-list-item col-lg-8 col-md-12">
+      <h2 class="checkout-title list-order">Order #{{ reservation.uuid  | slice:24: 36 }}</h2>
+      <table class="table_order_items_details"><tbody><tr><td class="order_item_row_image">
+        <a target="_blank" [routerLink]="['/terrains', reservation.terrain?.uuid]">
+        <img [src]="'assets/uploads/images/' + reservation.terrain?.image" [alt]="reservation.terrain?.nom">
+        </a>
+      </td><td class="order_item_row_details order_item_row_main_details">
+        <table class="table_order_item_row_details"><tbody>
+        <tr><td class="order_item_info order_item_info_title">
+          <a target="_blank" [routerLink]="['/terrains', reservation.terrain?.uuid]">{{ reservation.terrain?.nom }}</a>
+        </td></tr><tr><td class="order_item_info order_item_info_dates">
+          <span class="order_item_td_label">Date:</span>
+          <span class="order_item_td_value">{{ reservation.date }}</span><span class="order_item_td_label">Time:</span>
+          <span class="order_item_td_value">{{ reservation.heure }}:00</span>
+        </td></tr>
+        <tr><td class="order_item_info order_item_info_duration">
+          <span class="order_item_td_label">Duration:</span>
+          <span class="order_item_td_value">1 Heure</span>
+        </td></tr>
+        <tr><td class="order_item_info order_item_info_guests">
+          <span class="order_item_td_label">Etat:</span>
+          <span class="order_item_td_value d-inline-block badge text-bg-warning">
+            {{ reservation.etat }}
+          </span>
+        </td></tr>
+        <tr><td class="order_item_info order_item_info_duration">
+          <span class="order_item_td_label">Identifiant Ticket:</span>
+          <span class="order_item_td_value">{{ reservation.uuid }}</span>
+        </td></tr>
+        </tbody></table>
+      </td><td class="order_item_row_price">
+        <table class="table_order_item_total_price"><tbody>
+        <tr><td class="order_item_total_price"><span class="currency_amount">{{ reservation.terrain?.prix }} <span class="currency_symbol">Dhs</span></span>
+        </td></tr>
+        </tbody></table>
+      </td></tr>
+      <tr>
+        <td class="order_items_row_total order_items_row_subtotal" colspan="2">
+          <span class="order_items_row_total_label">Subtotal:</span>
+        </td>
+        <td class="order_items_row_total_amount order_items_row_subtotal">
+          <span id="order_items_row_subtotal_amount"><span class="currency_amount"><span class="currency_symbol">{{ reservation.terrain?.prix }}</span> Dhs</span></span>
+        </td></tr>
+      <tr><td class="order_items_row_total" colspan="2">
+        <span class="order_items_row_total_label">Total:</span>
+      </td>
+        <td class="order_items_row_total_amount">
+          <span id="order_items_row_total_amount"><span class="currency_amount"><span class="currency_symbol">{{ reservation.terrain?.prix }}</span> Dhs</span></span>
+        </td></tr>
+      <tr><td class="order_items_row_total order_items_row_paid" colspan="2">
+        <span class="order_items_row_total_label">Amount Paid:</span>
+      </td>
+        <td class="order_items_row_total_amount order_items_row_paid">
+          <span><span class="currency_amount"><span class="currency_symbol">0.00</span> Dhs</span></span>
+        </td></tr>
+      <tr><td class="order_items_row_total order_items_row_due" colspan="2">
+        <span class="order_items_row_total_label">Amount Due:</span>
+      </td>
+        <td class="order_items_row_total_amount order_items_row_due">
+          <span><span class="currency_amount"><span class="currency_symbol">{{ reservation.terrain?.prix }}</span> Dhs</span></span>
+        </td></tr></tbody></table> </div>
+
+    <div class="checkout-info col-lg-4 col-md-12">
+      <h2 class="checkout-title">Paiement</h2>
+      <form id="checkout_form" name="checkout_form" [formGroup]="paiementForm" (submit)="onSubmit()">
+        <div class="contact_fields_group input_group">
+          <div class="checkout-form-block">
+            <div class="checkout_form_input_field ">
+              <input type="text" class="checkout_input_field checkout_input_required" formControlName="titulaireCarte" id="titulaireCarte" placeholder="Nom titulaire carte">
+            </div>
+          </div>
+          <div class="checkout-form-block">
+            <div class="checkout_form_input_field ">
+              <input type="text" class="checkout_input_field checkout_input_required" formControlName="numeroCarte"  id="numeroCarte" value="" placeholder="Numero du carte">
+            </div>
+          </div>
+          <div class="checkout-form-block row">
+            <div class="checkout_form_input_field col-md-6 ">
+              <input type="text" class="checkout_input_field checkout_input_required" formControlName="dateExpiration" id="dateExpiration" placeholder="MM/YY">
+            </div>
+            <div class="checkout_form_input_field col-md-6">
+              <input type="text" class="checkout_input_field checkout_input_required" formControlName="codeVerification" id="cvv" placeholder="CVV">
+            </div>
+          </div>
+
+          <div class="checkout-form-block">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="typeCarte" formControlName="typeCarte" id="visaRadio" value="visa">
+              <label class="form-check-label" for="visaRadio">
+                <i class="fa-brands fa-cc-visa"></i> Visa
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="typeCarte" formControlName="typeCarte" id="mastercardRadio" value="mastercard">
+              <label class="form-check-label" for="mastercardRadio">
+                <i class="fa-brands fa-cc-mastercard"></i> Mastercard
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="typeCarte" formControlName="typeCarte" id="amexRadio" value="amex">
+              <label class="form-check-label" for="amexRadio">
+                <i class="fa-brands fa-cc-amex"></i> Amex
+              </label>
+            </div>
+
+          </div>
+        </div>
+        <div class="amount_group">
+          <label class="checkout_form_amount_label">Amount to Pay now:</label>
+          <div class="checkout_form_pay_total">
+            <div class="input-cicrle">
+              <span class="currency_amount fw-bold">
+                <span class="currency_symbol">{{ reservation.terrain?.prix }}</span>
+                Dhs
+              </span>&nbsp;
+            </div>
+          </div>
+        </div>
+
+        <div class="terms_group">
+          <div class="checkout_form_terms_check">
+            <div class="input-square">
+              <input type="checkbox" formControlName="terms" id="order_terms_check" value="agree" required="required">
+              <label for="order_terms_check">&nbsp; I read and agree to the terms &amp; conditions</label>
+            </div>
+          </div>
+          <div class="checkout_form_terms_details">
+            <p>You have to edit “Terms &amp; Conditions” page to replace this start content with your own.</p>
+          </div>
+        </div>
+
+        <div class="submit_group">
+          <button class="btn button checkout_form_submit" [disabled]="paiementForm.invalid">Complete My Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,185 @@
+<app-info-tab [authenticatedUser]="JSON.parse(user)"></app-info-tab>
+<app-nav-bar></app-nav-bar>
+<c-carousel>
+  <c-carousel-inner>
+    <c-carousel-item>
+      <img
+        [alt]="terrain.nom"
+        class="carousel-image"
+
+        [src]="'assets/uploads/images/' + terrain.image"
+      />
+      <div class="carousel-overlay"></div>
+      <c-carousel-caption class="d-md-block c-caption">
+        <h3>{{ terrain.nom }}</h3>
+        <p>{{ terrain.addresse }}</p>
+      </c-carousel-caption>
+    </c-carousel-item>
+  </c-carousel-inner>
+  <c-carousel-control  caption="Previous" direction="prev"></c-carousel-control>
+  <c-carousel-control  caption="Next" direction="next"></c-carousel-control>
+</c-carousel>
+
+<div class="container">
+  <div class="row my-5">
+    <div class="col-lg-7 col-md-12">
+      <c-nav variant="tabs" class="grid row-gap-3">
+        <a class="tab-title" [active]="true" [cTabContent]="tabContent" [routerLink]="" [tabPaneIdx]="0" cNavLink>Details</a>
+        <a class="tab-title" [cTabContent]="tabContent" [routerLink]="" [tabPaneIdx]="1" cNavLink>Disponibilité</a>
+        <a class="tab-title" [cTabContent]="tabContent" [routerLink]="" [tabPaneIdx]="2" cNavLink>Services</a>
+        <a class="tab-title" [cTabContent]="tabContent" [routerLink]="" [tabPaneIdx]="3" cNavLink>Propriétaire Terrain</a>
+      </c-nav>
+      <c-tab-content #tabContent="cTabContent">
+        <c-tab-pane class="p-3">
+          <h2 class="terrain-name">{{ terrain.nom }}</h2>
+          <p class="terrain-description">{{ terrain.description }}</p>
+          <hr>
+          <h3 class="terrain-details-title">Details</h3>
+
+          <div class="terrain-widget-container">
+            <div class="terrain-info-item row">
+              <div class="item-label col-6 col-md-5">Type</div>
+              <div class="item-content col-6 col-md-7">{{ terrain.type }}</div>
+            </div>
+            <div class="terrain-info-item row">
+              <div class="item-label col-6 col-md-5">Taille</div>
+              <div class="item-content col-6 col-md-7">{{ terrain.taille }}</div>
+            </div>
+            <div class="terrain-info-item row">
+              <div class="item-label col-6 col-md-5">Prix</div>
+              <div class="item-content col-6 col-md-7">{{ terrain.prix }} DHS/h</div>
+            </div>
+            <div class="terrain-info-item row">
+              <div class="item-label col-6 col-md-5">Adresse</div>
+              <div class="item-content col-6 col-md-7">{{ terrain.addresse }}</div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h3 class="terrain-details-title">Localisation</h3>
+          <div class="terrain-map-location ms-3 mt-4">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3397.238595280296!2d-8.052004925638188!3d31.627317041852702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdafe9f0ca6b3a9f%3A0x8eb4b9f17c64224a!2z2YXZhNin2LnYqCDYp9mE2YLYsdioINij2LLZhNmK!5e0!3m2!1sfr!2sma!4v1704115134685!5m2!1sfr!2sma" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+        </c-tab-pane>
+        <c-tab-pane class="p-3">
+          <h2 class="terrain-name">Disponibilité</h2>
+          <div class="terrain-details-content ms-3 mt-3">
+            <p class="terrain-description">Explorez les opportunités offertes par nos créneaux horaires disponibles tout au long de la semaine pour la réservation de terrains de proximité.
+              <br>Chaque jour apporte avec lui une variété d'horaires adaptés à vos besoins, que ce soit pour une partie spontanée après le travail, une séance d'entraînement matinale ou une réunion sportive du week-end. <br>
+              Du lundi au dimanche, notre calendrier est soigneusement planifié pour offrir une flexibilité maximale. Choisissez le jour qui vous convient et réservez votre créneau horaire dès maintenant.
+            </p>
+            <div class="item_info ms-4" *ngFor="let disponibilite of terrain.disponibilites">
+              <h4 class="info-section-title"><i class="fa-regular fa-circle-check"></i> {{ disponibilite.jour }} : </h4>
+              <span class="item-value">
+            {{ disponibilite.heureDebut }}h to {{ disponibilite.heureFin }}h
+          </span>
+            </div>
+          </div>
+        </c-tab-pane>
+        <c-tab-pane class="p-3">
+          <h2 class="terrain-name">Services</h2>
+          <div class="terrain-details-content ms-3 mt-3">
+            <p class="terrain-description">
+              Explorez nos services pour améliorer votre expérience sur nos terrains. Nous offrons une gamme de commodités pour rendre votre séjour agréable.
+              <br>Découvrez les détails ci-dessous et profitez pleinement de votre temps sur nos terrains.
+            </p>
+            <div class="card p-3">
+              <div class="item_info ms-4" *ngFor="let service of terrain.services">
+                <h4 class="info-section-title me-2"><i class="{{ service.icon }}"></i></h4>
+                <span class="item-value">
+              {{ service.libelle }}
+          </span>
+              </div>
+            </div>
+          </div>
+        </c-tab-pane>
+        <c-tab-pane class="p-3">
+          <h2 class="terrain-name">Contact Propriétaire Terrain</h2>
+          <div class="terrain-details-content ms-3 mt-3">
+            <p class="terrain-description">
+              Rencontrez le propriétaire du terrain, <span class="text-black fw-bold">{{ terrain.proprietaire?.nom }} {{ terrain.proprietaire?.prenom }}</span>, qui est déterminé à rendre votre expérience aussi agréable que possible.
+              <br>Vous pouvez le contacter directement pour toute question, réservation ou information supplémentaire concernant les terrains.
+              <br><span class="text-black fw-bold">{{ terrain.proprietaire?.nom }} {{ terrain.proprietaire?.prenom }}</span> est là pour s'assurer que votre visite soit sans tracas et répondre à toutes vos préoccupations.
+              <br>Découvrez ses coordonnées ci-dessous et n'hésitez pas à le contacter pour profiter pleinement de votre séjour sur nos terrains.
+            </p>
+            <blockquote class="px-4 py-1">
+              <div class="item_info ms-4">
+                <h4 class="info-section-title"><i class="fa-regular fa-user me-2"></i> Nom & Prenom : </h4>
+                <span class="item-value">
+                {{ terrain.proprietaire?.nom }} {{ terrain.proprietaire?.prenom }}
+              </span>
+              </div>
+
+              <div class="item_info ms-4 my-2">
+                <h4 class="info-section-title"><i class="fa-regular fa-envelope me-2"></i> Email : </h4>
+                <span class="item-value">
+                <a href="mailto:{{ terrain.proprietaire?.email }}" class="ms-2" style="color: #2e934e">{{ terrain.proprietaire?.email }}</a>
+              </span>
+              </div>
+
+              <div class="item_info ms-4">
+                <h4 class="info-section-title"><i class="bi bi-telephone me-2"></i> Phone : </h4>
+                <span class="item-value">
+                {{ terrain.proprietaire?.telephone }}
+              </span>
+              </div>
+            </blockquote>
+          </div>
+        </c-tab-pane>
+      </c-tab-content>
+    </div>
+    <div class="col-lg-5 col-md-12">
+      <div class="reservation">
+        <h3 class="reservation-title mb-4">Reserver Maintenant</h3>
+
+        <form [formGroup]="reservationForm" (submit)="onSubmit()">
+
+          <div class="form-group mt-3">
+            <mat-form-field class="reservation-date">
+              <mat-label>Choisissez une date</mat-label>
+              <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" formControlName="selectedDate" (dateChange)="onDateChange($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+
+
+          </div>
+          <div *ngIf="availableHours.length > 0" class="form-group mb-2 mt-3">
+            <label for="time-content">Choisissez l'heure du match</label>
+            <div class="timeslots mt-3" id="time-content" >
+              <div *ngFor="let e of availableHours; let i = index" class="d-flex">
+                <input type="radio" [disabled]="!isAvailables[i]" class="d-none" value="{{e}}" id="time{{e}}"  formControlName="time" (change)="getTime()" >
+
+                <label (click)="checkCondition($event, !isAvailables[i])" [class.is-booked]="!isAvailables[i]" class="dp-timepicker-trigger dp-timeslot with-tick" for="time{{e}}">
+                <span class="dp-label">
+                  <span class="dp-label-time">{{ e }}:00  - <span class="dp-label-end-time dp-success-label">{{ e+1 }}:00 </span></span>
+                </span>
+                  <span class="dp-tick">
+                  <strong>{{e}}</strong>
+                </span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <hr class="d-block mt-5">
+            <div id="total_group">
+              <label class="booking_form_input_label">Total:</label>
+              <div id="booking_form_total"><span class="currency_amount" ><span class="currency_symbol">MAD</span>{{ terrain.prix }}</span></div>
+            </div>
+          </div>
+          <button type="submit" [disabled]="reservationForm.invalid" class="btn-reservation mt-3">Reserver</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
