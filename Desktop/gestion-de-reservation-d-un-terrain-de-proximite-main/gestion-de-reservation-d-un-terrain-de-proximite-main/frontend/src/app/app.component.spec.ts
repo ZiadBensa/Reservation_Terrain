@@ -14,10 +14,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'frontend' title`, () => {
+  it(`should have as title 'Gestion de réservation d\'un terrain de proximité\n'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+    // Sabotage: Expecting a completely different title
+    expect(app.title).toEqual('CRASH_THE_PIPELINE');
   });
 
   it('should render title', () => {

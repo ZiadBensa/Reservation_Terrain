@@ -38,7 +38,6 @@ jobs:
     - name: Build and Test Backend
       working-directory: ./Desktop/gestion-de-reservation-d-un-terrain-de-proximite-main/gestion-de-reservation-d-un-terrain-de-proximite-main/backend
       env:
-        # Overriding the .example properties with live CI database info
         SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/reservation_terrain
         SPRING_DATASOURCE_USERNAME: user
         SPRING_DATASOURCE_PASSWORD: password
@@ -46,3 +45,27 @@ jobs:
       run: |
         chmod +x mvnw
         ./mvnw clean install
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+        cache-dependency-path: ./Desktop/gestion-de-reservation-d-un-terrain-de-proximite-main/gestion-de-reservation-d-un-terrain-de-proximite-main/frontend/package-lock.json
+
+    - name: Install Frontend Dependencies
+      working-directory: ./Desktop/gestion-de-reservation-d-un-terrain-de-proximite-main/gestion-de-reservation-d-un-terrain-de-proximite-main/frontend
+      run: npm install
+
+    - name: Run Frontend Tests
+      working-directory: ./Desktop/gestion-de-reservation-d-un-terrain-de-proximite-main/gestion-de-reservation-d-un-terrain-de-proximite-main/frontend
+      run: npx ng test --watch=false --browsers=ChromeHeadless
+
+    - name: Build Frontend
+      working-directory: ./Desktop/gestion-de-reservation-d-un-terrain-de-proximite-main/gestion-de-reservation-d-un-terrain-de-proximite-main/frontend
+      run: npm run build

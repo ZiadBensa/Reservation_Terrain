@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CardTerrainComponent} from "./components/shared/card-terrain/card-terrain.component";
@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {SignUpComponent} from "./components/shared/sign-up/sign-up.component";
 import {InfoTabComponent} from "./components/shared/info-tab/info-tab.component";
 import {BreadcrumbModule} from "@coreui/angular";
+import { Title } from '@angular/platform-browser';
+import { IconSetService } from '@coreui/icons-angular';
+import { ProductionAnalyticsService } from 'ngx-production-analytics';
 
 @Component({
   selector: 'app-root',
@@ -19,4 +22,10 @@ import {BreadcrumbModule} from "@coreui/angular";
 })
 export class AppComponent {
   title = 'Gestion de réservation d\'un terrain de proximité\n';
+
+  constructor(
+    private titleService: Title,
+    private iconSetService: IconSetService,
+    private analytics: ProductionAnalyticsService
+  ) {}
 }
