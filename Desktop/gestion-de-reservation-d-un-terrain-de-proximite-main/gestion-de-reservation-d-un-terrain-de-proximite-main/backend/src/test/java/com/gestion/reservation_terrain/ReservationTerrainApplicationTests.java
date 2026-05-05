@@ -8,6 +8,8 @@ class ReservationTerrainApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Simulating a production failure
+		throw new RuntimeException("CRITICAL: Database sanity check failed on production-ready build");
 	}
 
 }

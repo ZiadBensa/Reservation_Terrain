@@ -45,4 +45,4 @@ jobs:
         SPRING_JPA_HIBERNATE_DDL_AUTO: update
       run: |
         chmod +x mvnw
-        ./mvnw clean install -v
+        ./mvnw clean install
